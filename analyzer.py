@@ -2,13 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 import google.generativeai as genai
-<<<<<<< HEAD
 load_dotenv()
-=======
-
-load_dotenv()
-
->>>>>>> 1ea3fc16dd1c1f2727a70fab7c76bdc478edbf11
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 model = genai.GenerativeModel("gemini-2.5-flash")
 
@@ -56,7 +50,6 @@ Respond with ONLY valid JSON, no markdown, no explanation.
 """
     response = model.generate_content(prompt)
     return json.loads(response.text.strip())
-
 
 if __name__ == "__main__":
     result = extract_ipc_and_keywords(
