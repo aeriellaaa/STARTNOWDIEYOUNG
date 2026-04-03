@@ -1,35 +1,37 @@
 import gradio as gr
 
+import gradio as gr
+
 def get_theme():
-    return gr.themes.Base(
+    return gr.themes.Soft(
         primary_hue=gr.themes.Color(
-            c50="#faf5ea", c100="#f5f0e8", c200="#ede7d6",
-            c300="#c8bfaa", c400="#c8922a", c500="#c8922a",
-            c600="#b87a1a", c700="#9a6512", c800="#7a500e",
-            c900="#5a3c0a", c950="#3a2806",
+            c50="#f0f9ff", c100="#e0f2fe", c200="#bae6fd",
+            c300="#7dd3fc", c400="#38bdf8", c500="#0ea5e9",
+            c600="#0284c7", c700="#0369a1", c800="#075985",
+            c900="#0c4a6e", c950="#082f49",
         ),
         neutral_hue=gr.themes.Color(
-            c50="#f5f0e8", c100="#ede7d6", c200="#c8bfaa",
-            c300="#9a9080", c400="#6b6559", c500="#4a4540",
-            c600="#333028", c700="#1e1c18", c800="#141210",
-            c900="#0f0e0c", c950="#0a0908",
+            c50="#f8fafc", c100="#f1f5f9", c200="#e2e8f0",
+            c300="#cbd5e1", c400="#94a3b8", c500="#64748b",
+            c600="#475569", c700="#334155", c800="#1e293b",
+            c900="#0f172a", c950="#020617",
         ),
-        font=[gr.themes.GoogleFont("Syne"), "Georgia", "serif"],
-        font_mono=[gr.themes.GoogleFont("DM Mono"), "monospace"],
+        font=[gr.themes.GoogleFont("Outfit"), "sans-serif"],
+        font_mono=[gr.themes.GoogleFont("JetBrains Mono"), "monospace"],
     ).set(
-        body_background_fill="#f5f0e8",
-        body_text_color="#0f0e0c",
-        block_background_fill="#ede7d6",
-        block_border_color="#c8bfaa",
-        block_border_width="1.5px",
-        block_label_text_color="#6b6559",
-        block_label_background_fill="#f5f0e8",
-        input_background_fill="#ede7d6",
-        input_border_color="#c8bfaa",
-        button_primary_background_fill="#0f0e0c",
-        button_primary_text_color="#f5f0e8",
-        button_primary_background_fill_hover="#1a6b5c",
+        body_background_fill="#0f172a",
+        body_text_color="#f8fafc",
+        block_background_fill="#1e293b",
+        block_border_color="#334155",
+        block_border_width="1px",
+        block_label_text_color="#94a3b8",
+        block_label_background_fill="#0f172a",
+        input_background_fill="#0f172a",
+        input_border_color="#334155",
+        button_primary_background_fill="#0ea5e9",
+        button_primary_text_color="#ffffff",
+        button_primary_background_fill_hover="#0284c7",
         button_secondary_background_fill="transparent",
-        button_secondary_border_color="#c8bfaa",
-        button_secondary_text_color="#0f0e0c",
-    )
+        button_secondary_border_color="#334155",
+        button_secondary_text_color="#f8fafc",
+    )

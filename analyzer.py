@@ -59,24 +59,6 @@ if __name__ == "__main__":
 def analyze_patents(user_description, patents):
     try:
         report = generate_novelty_report(user_description, patents)
-        return f"""
-## 🔍 Novelty Score: {report['novelty_score']}/100
-
-## 📋 Closest Patent
-{report['closest_patent']}
-
-## 📝 Summary
-{report['summary']}
-
-## ✅ What Makes Your Idea Different
-{chr(10).join(f"- {d}" for d in report['differentiators'])}
-
-## ⚠️ Risk Level: {report['risk_level']}
-
-## 🔗 Claim Overlaps
-{chr(10).join(f"- {c}" for c in report['claim_overlap'])}
-
-## 🏷️ IPC Class: {report['ipc_class']}
-"""
+        return report
     except Exception as e:
-        return f"Analysis error: {e}"
+        return {"error": str(e)}
