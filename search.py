@@ -1,4 +1,230 @@
 """
+Patent search + embedding-based reranking.
+
+Fetches patents from SerpAPI (Google Patents engine), then reranks them by
+cosine similarity between:
+  - embedding(user_description)
+  - embedding(patent abstract/snippet)
+
+No duplicate blocks: this file contains a single clean implementation.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+from typing import Any, List, Dict, Tuple
+
+import requests
+from dotenv import load_dotenv
+
+try:
+    from sentence_transformers import SentenceTransformer
+except Exception as e:  # pragma: no cover
+    SentenceTransformer = None  # type: ignore[assignment]
+    _SENTENCE_TRANSFORMERS_IMPORT_ERROR = e
+else:
+    _SENTENCE_TRANSFORMERS_IMPORT_ERROR = None
+
+
+SERPAPI_URL = "https://serpapi.com/search"
+SERPAPI_ENGINE = "google_patents"
+
+# mixedbread-ai: mxbai-embed-large-v1 (1024-d vectors)
+EMBED_MODEL_NAME = "mixedbread-ai/mxbai-embed-large-v1"
+
+_MODEL: SentenceTransformer | None = None
+
+
+def _get_serpapi_key() -> str:
+    load_dotenv()
+    key = os.getenv("SERPAPI_KEY", "").strip()
+    if not key:
+        raise RuntimeError("SERPAPI_KEY is not set in the environment or .env file")
+    return key
+
+
+def _download_required_model_files(cache_dir: str) -> str:
+    """
+    Download required model files directly via HTTP.
+
+    We download to a local directory and load SentenceTransformer from that
+    directory, avoiding any broken/incomplete HF cache snapshots.
+    """
+    local_model_dir = os.path.join(cache_dir, EMBED_MODEL_NAME.replace("/", "-"))
+    os.makedirs(local_model_dir, exist_ok=True)
+
+    base_url = f"https://huggingface.co/{EMBED_MODEL_NAME}/resolve/main"
+
+    def _download_file(url: str, dest_path: str) -> None:
+        tmp_path = dest_path + ".part"
+        headers = {"User-Agent": "Mozilla/5.0"}
+        with requests.get(url, stream=True, timeout=60, headers=headers) as r:
+            r.raise_for_status()
+            with open(tmp_path, "wb") as f:
+                for chunk in r.iter_content(chunk_size=1024 * 1024):
+                    if chunk:
+                        f.write(chunk)
+        os.replace(tmp_path, dest_path)
+
+    required_files = [
+        "config.json",
+        "config_sentence_transformers.json",
+        "sentence_bert_config.json",
+        "modules.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+        "vocab.txt",
+        "model.safetensors",
+        # Pooling submodule config is required (contains word_embedding_dimension)
+        "1_Pooling/config.json",
+    ]
+
+    for fn in required_files:
+        dest = os.path.join(local_model_dir, fn)
+        if os.path.exists(dest):
+            continue
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        _download_file(f"{base_url}/{fn}", dest)
+
+    return local_model_dir
+
+
+def _get_embedder() -> SentenceTransformer:
+    global _MODEL
+    if _MODEL is not None:
+        return _MODEL
+
+    if SentenceTransformer is None:  # pragma: no cover
+        raise RuntimeError(
+            "sentence-transformers is required but could not be imported."
+        ) from _SENTENCE_TRANSFORMERS_IMPORT_ERROR
+
+    cache_dir = os.path.join(os.path.dirname(__file__), ".hf_cache_sentence_transformers")
+    os.makedirs(cache_dir, exist_ok=True)
+    local_model_dir = _download_required_model_files(cache_dir)
+
+    _MODEL = SentenceTransformer(local_model_dir)
+    return _MODEL
+
+
+def _serpapi_search_patents(keyword: str, *, limit: int) -> List[Dict[str, str]]:
+    api_key = _get_serpapi_key()
+    params = {"engine": SERPAPI_ENGINE, "q": keyword, "api_key": api_key}
+
+    resp = requests.get(SERPAPI_URL, params=params, timeout=30)
+    resp.raise_for_status()
+
+    try:
+        data: Any = resp.json()
+    except json.JSONDecodeError as e:
+        snippet = (resp.text or "")[:200]
+        raise RuntimeError(
+            f"SerpAPI returned invalid JSON: {e}. Body starts with: {snippet!r}"
+        ) from e
+
+    organic = data.get("organic_results") or []
+    if not isinstance(organic, list):
+        raise RuntimeError("Unexpected SerpAPI response: 'organic_results' is not a list")
+
+    out: List[Dict[str, str]] = []
+    for item in organic:
+        if not isinstance(item, dict):
+            continue
+        out.append(
+            {
+                "patent_number": str(item.get("publication_number") or "").strip(),
+                "title": str(item.get("title") or "").strip(),
+                # Use snippet as abstract text for embedding.
+                "abstract": str(item.get("snippet") or "").strip(),
+            }
+        )
+        if len(out) >= limit:
+            break
+
+    return out
+
+
+def _rerank_by_embedding(
+    user_description: str,
+    patents: List[Dict[str, str]],
+) -> List[Dict[str, Any]]:
+    embedder = _get_embedder()
+
+    abstracts = [(p.get("abstract") or p.get("title") or "") for p in patents]
+    texts = [user_description] + abstracts
+
+    vectors = embedder.encode(
+        texts,
+        convert_to_numpy=True,
+        normalize_embeddings=True,  # cosine similarity == dot product
+    )
+
+    # mxbai-embed-large-v1 should be 1024-d
+    if vectors.ndim != 2 or vectors.shape[1] != 1024:
+        raise RuntimeError(f"Expected 1024-d embeddings, got shape {vectors.shape}")
+
+    description_vec = vectors[0]
+    abstract_vecs = vectors[1:]
+
+    # Dot product due to normalization.
+    scores = (abstract_vecs @ description_vec).tolist()
+
+    reranked: List[Dict[str, Any]] = []
+    for p, s in zip(patents, scores):
+        p2 = dict(p)
+        p2["similarity_score"] = float(s)
+        reranked.append(p2)
+
+    reranked.sort(key=lambda x: float(x.get("similarity_score", 0.0)), reverse=True)
+    return reranked
+
+
+def search_patents(keyword: str, user_description: str, limit: int = 10) -> List[Dict[str, Any]]:
+    """
+    Search patents with SerpAPI and rerank using embedding similarity.
+
+    Returns top `limit` dicts with:
+      - patent_number (from publication_number)
+      - title
+      - abstract (SerpAPI snippet)
+      - similarity_score
+    """
+    keyword = (keyword or "").strip()
+    user_description = (user_description or "").strip()
+
+    if not keyword:
+        raise ValueError("keyword must be non-empty")
+    if not user_description:
+        raise ValueError("user_description must be non-empty")
+    if limit < 1:
+        raise ValueError("limit must be >= 1")
+
+    # Pull more candidates so reranking can reorder top N.
+    candidate_count = max(limit, min(30, limit * 3))
+    candidates = _serpapi_search_patents(keyword, limit=candidate_count)
+    if not candidates:
+        return []
+
+    reranked = _rerank_by_embedding(user_description, candidates)
+    return reranked[:limit]
+
+
+if __name__ == "__main__":
+    keyword = "solar energy battery"
+    description = "I want to make a solar powered battery storage system for homes"
+    results = search_patents(keyword, description, limit=10)
+
+    print(f"Top {len(results)} reranked patents for {keyword!r}:\n")
+    for i, p in enumerate(results, 1):
+        print(f"{i}. {p['patent_number']} — {p['title']}")
+        print(f"   similarity_score: {p['similarity_score']:.4f}")
+        preview = p.get("abstract", "")
+        preview = (preview[:400] + "…") if len(preview) > 400 else preview
+        print(f"   {preview}\n")
+
+"""
 Patent keyword search + embedding-based reranking.
 
 Fetches results via SerpAPI (Google Patents engine), then reranks by cosine
