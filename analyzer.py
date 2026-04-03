@@ -42,6 +42,8 @@ Return a JSON object with:
 - "closest_patent": title of the most similar patent
 - "differentiators": list of 2-4 ways the invention differs from prior art
 - "risk_level": one of "Low", "Medium", "High"
+- "claim_overlap": list of 2-4 specific claims from prior art that overlap with this invention
+- "ipc_class": the single most relevant IPC class for this invention (e.g. "B65D")
 
 Respond with ONLY valid JSON, no markdown, no explanation.
 """
