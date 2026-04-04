@@ -1,15 +1,17 @@
 
 
 ```markdown
-# AviShkar — Know Before You Build
+#  AviShkar — Know Before You Build
 
-AI-powered prior art patent search platform. Describe your invention idea in plain English and AviShkar will search existing patents and generate a novelty report instantly — no legal expertise needed.
+AI-powered prior art patent search platform. Describe your invention idea in 
+plain English and AviShkar searches existing patents and generates a novelty 
+report instantly — no legal expertise needed.
 
 ---
 
-## What It Does
+##  What It Does
 
-1. You describe your invention idea in plain English
+1. Describe your invention idea in plain English
 2. AviShkar searches Google Patents via SerpAPI
 3. Gemini AI analyzes results and generates a novelty report with:
    - Novelty score (0-100)
@@ -22,16 +24,16 @@ AI-powered prior art patent search platform. Describe your invention idea in pla
 
 ##  Tech Stack
 
-- Frontend: Gradio
-- Backend:Python
-- Patent Search: SerpAPI (Google Patents)
-- AI Analysis: Gemini 2.5 Flash (Google AI Studio)
-- Embeddings: mxbai-embed-large-v1 (SentenceTransformers)
-- Similarity Ranking: FAISS-style cosine similarity
+- Frontend: HTML + CSS + JS (static)
+- Backend: FstAPI + Python
+- Patent Search:SerpAPI (Google Patents)
+- AI Analysis:Gemini 2.5 Flash (Google AI Studio)
+- Embeddings:mxbai-embed-large-v1 (SentenceTransformers)
+- Similarity Ranking:Cosine similarity
 
 ---
 
-## Setup
+##  Setup & Run
 
 ### 1. Clone the repo
 ```bash
@@ -41,40 +43,70 @@ cd Avishkar
 
 ### 2. Install dependencies
 ```bash
-pip install -r requirements.txt
+pip install fastapi uvicorn python-dotenv google-generativeai sentence-transformers requests gradio
 ```
 
-### 3. Create `.env` file
+### 3. Create a `.env` file in the root folder
 ```
 GEMINI_API_KEY=your_gemini_key_here
 SERPAPI_KEY=your_serpapi_key_here
 ```
 
-### 4. Run
+Get your keys here:
+- Gemini: https://aistudio.google.com
+- SerpAPI: https://serpapi.com
+
+### 4. Run the backend (Terminal 1)
 ```bash
-python app.py
+uvicorn api_server:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Open http://127.0.0.1:7860 in your browser.
+### 5. Serve the frontend (Terminal 2)
+```bash
+python -m http.server 8080
+```
+
+### 6. Open in browser
+```
+http://localhost:8080
+```
 
 ---
 
-##  Team — Hope it Compiles
+## 📁 Project Structure
+
+```
+AviShkar/
+├── index.html          # Main frontend
+├── styles.css          # Styling
+├── script.js           # Frontend logic
+├── api_server.py       # FastAPI backend
+├── search.py           # Patent search via SerpAPI
+├── analyzer.py         # Gemini AI analysis
+├── ui/
+│   └── theme.py        # Gradio theme (optional)
+├── requirements.txt    # Dependencies
+├── .env                # API keys (never commit this)
+└── .gitignore
+```
+
+---
+
+## 👥 Team — Hope it Compiles
 
 | Name | Role |
 |------|------|
-| Srishti Srivastava | Team Lead, Patent Search Module |
-| Malavika Rajeev Nair | Frontend & UI Theme |
-| Akshata Srivastava | App Integration & Glue Code |
+| Srishti Srivastava | Team Lead · Patent Search Module · API Server |
+| Malavika Rajeev Nair | Frontend · UI Design |
+| Akshata Srivastava | App Integration · Glue Code |
 | Palak Lohia | Gemini AI Analysis Module |
 
 ---
 
-##  Built For
+## 🏆 Built For
 
 OssomeHacks — GitHub Community SRM
 Track: Open Innovation using AI/ML
 
 ---
-
 
