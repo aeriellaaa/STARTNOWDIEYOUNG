@@ -1,4 +1,4 @@
-Here's your README:
+
 
 ```markdown
 # AviShkar — Know Before You Build
@@ -22,12 +22,12 @@ AI-powered prior art patent search platform. Describe your invention idea in pla
 
 ##  Tech Stack
 
-- **Frontend:** Gradio
-- **Backend:** Python
-- **Patent Search:** SerpAPI (Google Patents)
-- **AI Analysis:** Gemini 2.5 Flash (Google AI Studio)
-- **Embeddings:** mxbai-embed-large-v1 (SentenceTransformers)
-- **Similarity Ranking:** FAISS-style cosine similarity
+- Frontend: Gradio
+- Backend:Python
+- Patent Search: SerpAPI (Google Patents)
+- AI Analysis: Gemini 2.5 Flash (Google AI Studio)
+- Embeddings: mxbai-embed-large-v1 (SentenceTransformers)
+- Similarity Ranking: FAISS-style cosine similarity
 
 ---
 
@@ -35,7 +35,7 @@ AI-powered prior art patent search platform. Describe your invention idea in pla
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/aeriellaaa/STARTNOWDIEYOUNG.git
+git clone https://github.com/aeriellaaa/Avishkar.git
 cd Avishkar
 ```
 
