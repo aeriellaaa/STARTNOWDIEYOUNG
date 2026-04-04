@@ -77,9 +77,4 @@ Track: Open Innovation using AI/ML
 
 ---
 
-## ⚠️ Note
 
-Add your own API keys in `.env` — never commit them to GitHub.
-```
-
-Save this as `README.md` in your root folder and push 🔥
