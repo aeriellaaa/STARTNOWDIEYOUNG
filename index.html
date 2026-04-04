@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AviShkar — prior art search from sketch + plain English. OSSOMEHACKS." />
   <title>AviShkar – Know Before You Build</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet" />
 </head>
+
 <body>
 
   <a href="#hero" class="skip-link"></a>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<nav id="nav" aria-label="Main">
-  <div class="nav-container">
-    <a href="#hero" class="nav-logo" aria-label="AviShkar home">
-      <div class="logo-wrapper">
-         <img src="assets/logo_bg_removed.png.png" alt="Avishkar" class="nav-logo-img" decoding="async" />
+  <nav id="nav" aria-label="Main">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" aria-label="AviShkar home">
+        <div class="logo-wrapper">
+          <img src="assets/logo_bg_removed.png.png" alt="Avishkar" class="nav-logo-img" decoding="async" />
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#problem" data-nav>Problem</a></li>
+          <li><a href="#solution" data-nav>Solution</a></li>
+          <li><a href="#pipeline" data-nav>Pipeline</a></li>
+          <li><a href="#tech" data-nav>Tech</a></li>
+          <li><a href="#team" data-nav>Team</a></li>
+        </ul>
+
+        <button type="button" class="cta-btn" onclick="showDemo()">
+          <span class="live-dot" aria-hidden="true"></span> Try Demo
+        </button>
+
+        <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel"
+          aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </a>
-
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#problem" data-nav>Problem</a></li>
-        <li><a href="#solution" data-nav>Solution</a></li>
-        <li><a href="#pipeline" data-nav>Pipeline</a></li>
-        <li><a href="#tech" data-nav>Tech</a></li>
-        <li><a href="#team" data-nav>Team</a></li>
-      </ul>
-
-      <button type="button" class="cta-btn" onclick="showDemo()">
-        <span class="live-dot" aria-hidden="true"></span> Try Demo
-      </button>
-
-      <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <div id="home">
 
@@ -48,8 +53,9 @@
       <canvas id="particles" aria-hidden="true"></canvas>
       <div class="hero-content">
         <div class="badge">OSSOMEHACKS · Hope it Compiles · AI/ML Track</div>
-        <h1 id="hero-heading">Know before<br/><span>you build.</span></h1>
-        <p class="hero-sub">Upload a sketch, describe your idea — AviShkar surfaces relevant patents from USPTO, Google Patents &amp; WIPO in under 60 seconds. No legal expertise needed.</p>
+        <h1 id="hero-heading">Know before<br /><span>you build.</span></h1>
+        <p class="hero-sub">Upload a sketch, describe your idea — AviShkar surfaces relevant patents from Google
+          Patents in under 60 seconds. No legal expertise needed.</p>
         <div class="hero-btns">
           <button type="button" class="btn-primary" onclick="showDemo()">Try the Demo</button>
           <a href="#problem" class="btn-outline">Explore the Problem ↗</a>
@@ -71,7 +77,7 @@
         <div class="two-col">
           <div class="col-left">
             <div class="tag">Problem Statement</div>
-            <h2>The system is built<br/>against them.</h2>
+            <h2>The system is built<br />against them.</h2>
             <p class="sub">India files 90,000+ patents a year — but the barrier isn't creativity. It's access.</p>
             <div class="quote-box">
               <div class="qbar" aria-hidden="true"></div>
@@ -107,15 +113,34 @@
     <section id="solution" class="alt-bg reveal">
       <div class="container">
         <div class="tag centered">Proposed Solution</div>
-        <h2 class="centered">AviShkar: Prior art search,<br/>reimagined for everyone.</h2>
-        <p class="sub centered">Sketch + plain English → multi-stage AI pipeline → ranked prior art report. In under a minute.</p>
+        <h2 class="centered">AviShkar: Prior art search,<br />reimagined for everyone.</h2>
+        <p class="sub centered">Sketch + plain English → multi-stage AI pipeline → ranked prior art report. In under a
+          minute.</p>
         <div class="feature-grid">
-          <div class="feat"><span aria-hidden="true">🖼️</span><h4>Sketch Upload</h4><p>Upload any rough sketch — vision model extracts semantic tags automatically.</p></div>
-          <div class="feat"><span aria-hidden="true">✍️</span><h4>Plain English</h4><p>Describe your idea naturally. No IPC codes or legal jargon required.</p></div>
-          <div class="feat"><span aria-hidden="true">🔍</span><h4>Multi-DB Search</h4><p>Queries USPTO, Google Patents, and WIPO/EPO simultaneously.</p></div>
-          <div class="feat"><span aria-hidden="true">📊</span><h4>Novelty Report</h4><p>Ranked patents with plain-English summaries, novelty scores &amp; claim overlap.</p></div>
-          <div class="feat"><span aria-hidden="true">⚡</span><h4>Under 60 Seconds</h4><p>Full pipeline — upload to shareable report — completes in under a minute.</p></div>
-          <div class="feat"><span aria-hidden="true">🆓</span><h4>Zero Fees</h4><p>Replaces ₹50K agent searches with a free, open-access AI pipeline.</p></div>
+          <div class="feat"><span aria-hidden="true">🖼️</span>
+            <h4>Sketch Upload</h4>
+            <p>Upload any rough sketch — vision model extracts semantic tags automatically.</p>
+          </div>
+          <div class="feat"><span aria-hidden="true">✍️</span>
+            <h4>Plain English</h4>
+            <p>Describe your idea naturally. No IPC codes or legal jargon required.</p>
+          </div>
+          <div class="feat"><span aria-hidden="true">🔍</span>
+            <h4>Multi-DB Search</h4>
+            <p>Queries USPTO, Google Patents, and WIPO/EPO simultaneously.</p>
+          </div>
+          <div class="feat"><span aria-hidden="true">📊</span>
+            <h4>Novelty Report</h4>
+            <p>Ranked patents with plain-English summaries, novelty scores &amp; claim overlap.</p>
+          </div>
+          <div class="feat"><span aria-hidden="true">⚡</span>
+            <h4>Under 60 Seconds</h4>
+            <p>Full pipeline — upload to shareable report — completes in under a minute.</p>
+          </div>
+          <div class="feat"><span aria-hidden="true">🆓</span>
+            <h4>Zero Fees</h4>
+            <p>Replaces ₹50K agent searches with a free, open-access AI pipeline.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -125,7 +150,8 @@
         <div class="tag">Technical Pipeline</div>
         <h2>Six-stage intelligent pipeline</h2>
         <p class="sub">Click each stage to explore what happens under the hood. Use ← → when focused.</p>
-        <div class="pipeline-wrap" id="pipelineWrap" tabindex="0" aria-label="Pipeline stages. Use arrow keys to change stage.">
+        <div class="pipeline-wrap" id="pipelineWrap" tabindex="0"
+          aria-label="Pipeline stages. Use arrow keys to change stage.">
           <div class="pipe-steps" id="pipeSteps"></div>
           <div class="pipe-detail" id="pipeDetail"></div>
         </div>
@@ -135,16 +161,48 @@
     <section id="tech" class="alt-bg reveal">
       <div class="container">
         <div class="tag">Tech Stack</div>
-        <h2>Built on open-source.<br/>Powered by state-of-the-art.</h2>
+        <h2>Built on open-source.<br />Powered by state-of-the-art.</h2>
         <div class="tech-grid">
-          <div class="tech-card" style="--c:#1a5346"><div class="tc-cat" style="color:#1a5346">Frontend</div><div class="tc-name">Gradio</div><div class="tc-note">UI framework</div></div>
-          <div class="tech-card" style="--c:#4a5d7a"><div class="tc-cat" style="color:#4a5d7a">Backend</div><div class="tc-name">FastAPI + Python</div><div class="tc-note">REST API · Core language</div></div>
-          <div class="tech-card" style="--c:#2d7a68"><div class="tc-cat" style="color:#2d7a68">Vision Model</div><div class="tc-name">OpenCLIP ViT-H-14</div><div class="tc-note">LAION-2B · 512-d vector</div></div>
-          <div class="tech-card" style="--c:#1d6b52"><div class="tc-cat" style="color:#1d6b52">Text Model</div><div class="tc-name">mxbai-embed-large-v1</div><div class="tc-note">MTEB #1 · 1024-d vector</div></div>
-          <div class="tech-card" style="--c:#9a5f3c"><div class="tc-cat" style="color:#9a5f3c">Retrieval</div><div class="tc-name">FAISS + Qdrant</div><div class="tc-note">50K+ patents indexed</div></div>
-          <div class="tech-card" style="--c:#b54747"><div class="tc-cat" style="color:#b54747">Re-ranking</div><div class="tc-name">ms-marco-MiniLM</div><div class="tc-note">Top-100 → Top-10</div></div>
-          <div class="tech-card" style="--c:#6b5b7a"><div class="tc-cat" style="color:#6b5b7a">LLM / Report</div><div class="tc-name">Gemini 2.5 Flash</div><div class="tc-note">Google AI Studio API</div></div>
-          <div class="tech-card" style="--c:#6b6560"><div class="tc-cat" style="color:#6b6560">Infra</div><div class="tc-name">HuggingFace Spaces</div><div class="tc-note">Hosting · GitHub</div></div>
+          <div class="tech-card" style="--c:#1a5346">
+            <div class="tc-cat" style="color:#1a5346">Frontend</div>
+            <div class="tc-name">Gradio</div>
+            <div class="tc-note">UI framework</div>
+          </div>
+          <div class="tech-card" style="--c:#4a5d7a">
+            <div class="tc-cat" style="color:#4a5d7a">Backend</div>
+            <div class="tc-name">FastAPI + Python</div>
+            <div class="tc-note">REST API · Core language</div>
+          </div>
+          <div class="tech-card" style="--c:#2d7a68">
+            <div class="tc-cat" style="color:#2d7a68">Vision Model</div>
+            <div class="tc-name">OpenCLIP ViT-H-14</div>
+            <div class="tc-note">LAION-2B · 512-d vector</div>
+          </div>
+          <div class="tech-card" style="--c:#1d6b52">
+            <div class="tc-cat" style="color:#1d6b52">Text Model</div>
+            <div class="tc-name">mxbai-embed-large-v1</div>
+            <div class="tc-note">MTEB #1 · 1024-d vector</div>
+          </div>
+          <div class="tech-card" style="--c:#9a5f3c">
+            <div class="tc-cat" style="color:#9a5f3c">Retrieval</div>
+            <div class="tc-name">FAISS + Qdrant</div>
+            <div class="tc-note">50K+ patents indexed</div>
+          </div>
+          <div class="tech-card" style="--c:#b54747">
+            <div class="tc-cat" style="color:#b54747">Re-ranking</div>
+            <div class="tc-name">ms-marco-MiniLM</div>
+            <div class="tc-note">Top-100 → Top-10</div>
+          </div>
+          <div class="tech-card" style="--c:#6b5b7a">
+            <div class="tc-cat" style="color:#6b5b7a">LLM / Report</div>
+            <div class="tc-name">Gemini 2.5 Flash</div>
+            <div class="tc-note">Google AI Studio API</div>
+          </div>
+          <div class="tech-card" style="--c:#6b6560">
+            <div class="tc-cat" style="color:#6b6560">Infra</div>
+            <div class="tc-name">HuggingFace Spaces</div>
+            <div class="tc-note">Hosting · GitHub</div>
+          </div>
         </div>
       </div>
     </section>
@@ -194,41 +252,43 @@
     <div class="container demo-container">
       <button type="button" class="back-btn" onclick="showHome()">← Back to Home</button>
       <h2 class="demo-title">Prior Art Search Demo</h2>
-      <p class="demo-lead">Upload a sketch + describe your idea. We simulate the full 6-stage AI pipeline. <em class="demo-note">Mock results — set <code class="inline-code">API_BASE_URL</code> in <code class="inline-code">script.js</code> to wire your FastAPI backend.</em></p>
-      <div class="demo-layout">
-        <div class="input-panel">
-          <label class="inp-label" for="fileInput">Sketch Upload (optional)</label>
-          <div class="drop-zone" id="dropZone"
-            role="button"
-            tabindex="0"
-            aria-label="Upload sketch image"
-            onclick="document.getElementById('fileInput').click()"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileInput').click();}">
-            <div class="drop-icon" aria-hidden="true">🖼️</div>
-            <div class="drop-text">Click or drag &amp; drop your sketch<br/><strong>PNG / JPG / SVG</strong></div>
-            <img id="previewImg" src="" alt="Sketch preview" />
+      <p class="demo-lead">Upload a sketch + describe your idea. We simulate the full 6-stage AI pipeline. <em
+          class="demo-note">
+          <div class="demo-layout">
+            <div class="input-panel">
+              <label class="inp-label" for="fileInput">Sketch Upload (optional)</label>
+              <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload sketch image"
+                onclick="document.getElementById('fileInput').click()"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileInput').click();}">
+                <div class="drop-icon" aria-hidden="true">🖼️</div>
+                <div class="drop-text">Click or drag &amp; drop your sketch<br /><strong>PNG / JPG / SVG</strong></div>
+                <img id="previewImg" src="" alt="Sketch preview" />
+              </div>
+              <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)" />
+              <label class="inp-label" for="ideaText">Describe Your Idea</label>
+              <textarea id="ideaText"
+                placeholder="e.g. A wearable that monitors hydration via skin conductance and sends phone alerts..."></textarea>
+              <button type="button" class="search-btn" id="searchBtn" onclick="runSearch()">Search Prior Art</button>
+            </div>
+            <div class="results-area">
+              <div id="emptyState" class="empty-state">
+                <div class="empty-icon" aria-hidden="true">🔬</div>
+                <div class="empty-title">Enter your idea and search</div>
+                <div class="empty-hint">Results appear here after the pipeline runs</div>
+              </div>
+              <div id="loadingBox" class="loading-box" hidden>
+                <div class="stage-list" id="stageList"></div>
+                <div class="prog-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                  id="progTrack">
+                  <div class="prog-fill" id="progFill"></div>
+                </div>
+              </div>
+              <div id="resultsBox" hidden>
+                <div class="result-tabs" id="resultTabs" role="tablist" aria-label="Patent results"></div>
+                <div id="resultCard"></div>
+              </div>
+            </div>
           </div>
-          <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)" />
-          <label class="inp-label" for="ideaText">Describe Your Idea</label>
-          <textarea id="ideaText" placeholder="e.g. A wearable that monitors hydration via skin conductance and sends phone alerts..."></textarea>
-          <button type="button" class="search-btn" id="searchBtn" onclick="runSearch()">Search Prior Art</button>
-        </div>
-        <div class="results-area">
-          <div id="emptyState" class="empty-state">
-            <div class="empty-icon" aria-hidden="true">🔬</div>
-            <div class="empty-title">Enter your idea and search</div>
-            <div class="empty-hint">Results appear here after the pipeline runs</div>
-          </div>
-          <div id="loadingBox" class="loading-box" hidden>
-            <div class="stage-list" id="stageList"></div>
-            <div class="prog-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progTrack"><div class="prog-fill" id="progFill"></div></div>
-          </div>
-          <div id="resultsBox" hidden>
-            <div class="result-tabs" id="resultTabs" role="tablist" aria-label="Patent results"></div>
-            <div id="resultCard"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -239,4 +299,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
