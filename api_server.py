@@ -40,7 +40,7 @@ def _year_from_patent_id(pid: str) -> str:
 
 def _map_patent(p: dict[str, Any], report: dict[str, Any], idx: int) -> dict[str, Any]:
     sim = float(p.get("similarity_score", 0))
-    novelty_pct = max(0, min(100, int(round(sim * 100))))
+    novelty_pct = report.get("novelty_score") or max(0, min(100, int(round(sim * 100))))
     diffs = report.get("differentiators") or []
     diff_text = " • ".join(diffs) if diffs else (report.get("summary") or "Compare your idea with this prior art.")
     return {
