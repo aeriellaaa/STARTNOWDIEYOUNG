@@ -8,8 +8,6 @@ sdk_version: "4.0.0"
 app_file: app.py
 pinned: false
 ---
-
-```markdown
 #  AviShkar — Know Before You Build
 
 AI-powered prior art patent search platform. Describe your invention idea in 
