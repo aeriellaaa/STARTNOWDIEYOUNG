@@ -10,18 +10,19 @@
 </head>
 <body>
 
-  <a href="#hero" class="skip-link">Skip to content</a>
+  <a href="#hero" class="skip-link"></a>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <nav id="nav" aria-label="Main">
+<nav id="nav" aria-label="Main">
+  <div class="nav-container">
     <a href="#hero" class="nav-logo" aria-label="AviShkar home">
-      <img src="assets/logo.png" alt="Avishkar" class="nav-logo-img" width="140" height="56" decoding="async" />
+      <div class="logo-wrapper">
+         <img src="assets/logo_bg_removed.png.png" alt="Avishkar" class="nav-logo-img" decoding="async" />
+      </div>
     </a>
-    <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-panel" id="navPanel">
+
+    <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#problem" data-nav>Problem</a></li>
         <li><a href="#solution" data-nav>Solution</a></li>
@@ -29,14 +30,17 @@
         <li><a href="#tech" data-nav>Tech</a></li>
         <li><a href="#team" data-nav>Team</a></li>
       </ul>
-      <button type="button" class="cta-btn cta-mobile" onclick="showDemo(); closeMenu();">
+
+      <button type="button" class="cta-btn" onclick="showDemo()">
         <span class="live-dot" aria-hidden="true"></span> Try Demo
       </button>
+
+      <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <button type="button" class="cta-btn cta-desktop" onclick="showDemo()">
-      <span class="live-dot" aria-hidden="true"></span> Try Demo
-    </button>
-  </nav>
+  </div>
+</nav>
 
   <div id="home">
 

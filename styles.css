@@ -1,22 +1,22 @@
-root {
-  /* Cream + warm neutrals */
-  --bg: #faf6f0;
-  --bg2: #f2ebe2;
-  --surface: #fffefb;
-  --surface2: #efe8dd;
-  --border: #e0d4c4;
-  /* Deep pine + sage — primary actions */
-  --accent: #1a5346;
-  --accent2: #2d7a68;
-  --accent-dim: rgba(26, 83, 70, 0.12);
-  /* Terracotta / bronze — highlights & quotes */
-  --gold: #9a5f3c;
-  --green: #1d6b52;
-  --text: #2a2620;
-  --text2: #5e574c;
-  --text3: #8a8275;
-  --shadow: rgba(42, 32, 22, 0.08);
-  --shadow-deep: rgba(42, 32, 22, 0.14);
+/* Dark Grape + Deep Purple */
+:root {
+  --bg: #020617;
+  --bg2: #0f172a;
+  --surface: #1e1b4b;
+  --surface2: #312e81;
+  --border: #4338ca;
+  /* Neon Pink — primary actions */
+  --accent: #f43f5e;
+  --accent2: #fb7185;
+  --accent-dim: rgba(244, 63, 94, 0.15);
+  /* Amber / Gold — highlights & quotes */
+  --gold: #f59e0b;
+  --green: #10b981;
+  --text: #ffffff;
+  --text2: #e2e8f0;
+  --text3: #94a3b8;
+  --shadow: rgba(244, 63, 94, 0.2);
+  --shadow-deep: rgba(0, 0, 0, 0.6);
   --display: 'Syne', sans-serif;
   --mono: 'Space Mono', monospace;
   --body: 'DM Sans', sans-serif;
@@ -32,30 +32,159 @@ button { cursor: pointer; border: none; background: none; font-family: var(--bod
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; gap: 28px;
-  padding: 18px 40px; transition: all .3s;
+:root {
+  /* Cream + warm neutrals */
+  --bg: #faf6f0;
+  --bg2: #f2ebe2;
+  --surface: #fffefb;
+  --surface2: #efe8dd;
+  --border: #e0d4c4;
+  /* Deep pine + sage */
+  --accent: #1a5346;
+  --accent2: #2d7a68;
+  --accent-dim: rgba(26, 83, 70, 0.12);
+  /* Highlight */
+  --cta-red: #ff4d6d; /* Making the button pop more like your image */
+  --text: #2a2620;
+  --text2: #5e574c;
+  --nav-height: 80px;
 }
-nav.scrolled {
-  background: rgba(8,9,13,.92); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border); padding: 12px 40px;
-}
-.logo { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--text); margin-right: auto; }
-.logo span { color: var(--accent2); }
-.nav-links { display: flex; list-style: none; gap: 2px; }
-.nav-links a { font-size: .85rem; color: var(--text2); padding: 7px 14px; border-radius: 6px; transition: all .2s; }
-.nav-links a:hover { color: var(--text); background: var(--accent-dim); }
-.cta-btn {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--accent); color: #fff; font-size: .85rem;
-  font-weight: 500; padding: 9px 20px; border-radius: 8px; transition: all .2s;
-}
-.cta-btn:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 18px rgba(99,102,241,.4); }
-.live-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.75)} }
 
+/* --- NAVIGATION BAR --- */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+/* Glass effect on scroll */
+#nav.scrolled {
+  background: rgba(250, 246, 240, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 70px; /* Slims down slightly when scrolling */
+}
+
+.nav-container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-wrapper {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--accent);
+}
+
+/* --- THE NEW CTA BUTTON --- */
+.cta-btn {
+  background: var(--cta-red);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #39ff14; /* Neon green live indicator */
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* --- MOBILE STUFF --- */
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 2px;
+  background: var(--text);
+}
+
+@media (max-width: 992px) {
+  .nav-links {
+    display: none; /* You can trigger your nav-panel logic here */
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  .cta-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
 /* LAYOUT */
 section { padding: 96px 0; }
 .alt-bg { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
