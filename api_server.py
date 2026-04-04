@@ -17,6 +17,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from analyzer import analyze_patents
 from search import search_patents
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 app = FastAPI(title="AviShkar API")
 
