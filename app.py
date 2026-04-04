@@ -101,7 +101,7 @@ with gr.Blocks(theme=get_theme(), css=custom_css, title="AviShkar — Patent Sea
             gr.Markdown(
                 """
                 <div style="display:flex; align-items:center; gap:12px;">
-                    <img src="https://raw.githubusercontent.com/aeriellaaa/Avishkar/main/logo_bg_removed.png.png" width="60">
+                    <img src="https://raw.githubusercontent.com/aeriellaaa/Avishkar/main/logo_bg_removed.png" width="60">
                     <div>
                         <h1 style="margin:0;">🚀 AviShkar</h1>
                         <p style="margin:0; color:#94a3b8;">Know Before You Build</p>
@@ -121,4 +121,3 @@ with gr.Blocks(theme=get_theme(), css=custom_css, title="AviShkar — Patent Sea
 
 if __name__ == "__main__":
     demo.launch()
-    
