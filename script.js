@@ -1,9 +1,5 @@
-/**
- * AviShkar frontend
- * Set to your FastAPI base (no trailing slash), e.g. 'http://localhost:8000', to use live search.
- * Expected POST /search multipart: file (optional), text (optional) → JSON { results: [...] } same shape as mockResults items.
- */
-const API_BASE_URL = '';
+/** Backend API (FastAPI). Start: uvicorn api_server:app --reload --port 8000 */
+const API_BASE_URL = 'http://localhost:8000';
 
 // ——— Nav scroll ———
 const navEl = document.getElementById('nav');
@@ -398,7 +394,7 @@ async function runSearch() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const list = Array.isArray(data.results) ? data.results : data;
-      if (!list.length) throw new Error('No results');
+      if (!list.length) throw new Error(data.error || 'No results');
       window.__lastResults = list;
       setProg(100);
       document.getElementById('loadingBox').hidden = true;
